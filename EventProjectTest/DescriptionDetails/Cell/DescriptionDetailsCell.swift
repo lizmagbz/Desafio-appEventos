@@ -12,10 +12,9 @@ class DescriptionDetailsCell: UITableViewCell {
     
     private lazy var eventImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "FeiraDeAnimais")
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 16.0
         imageView.clipsToBounds = true
+        imageView.layer.borderColor = UIColor.systemPurple.cgColor
+        imageView.layer.borderWidth = 2
         return imageView
     }()
     
@@ -80,8 +79,10 @@ class DescriptionDetailsCell: UITableViewCell {
         let button = UIButton()
         button.setTitle("Check-in", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.systemPurple, for: .normal)
         button.layer.cornerRadius = 8
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.systemPurple.cgColor
         button.backgroundColor = .systemGray5
         button.addTarget (self, action: #selector (checkAction), for: .touchUpInside)
         return button
@@ -91,9 +92,11 @@ class DescriptionDetailsCell: UITableViewCell {
         let button = UIButton()
         button.setTitle("Compartilhar", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.systemPurple, for: .normal)
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray5
+        button.layer.borderWidth = 2
+        button.layer.borderColor = UIColor.systemPurple.cgColor
         button.addTarget (self, action: #selector (shareAction), for: .touchUpInside)
         return button
     }()
@@ -115,6 +118,13 @@ class DescriptionDetailsCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .white
         setConstraints()
+    }
+    
+    func configure(viewModel: EventViewModel?) {
+        guard let viewModel = viewModel else { return }
+        eventTitleLabel.text = viewModel.title
+        eventImage.downloaded(from: viewModel.image, contentMode: .scaleAspectFill)
+        descriptionLabel.text = viewModel.description
     }
     
     private func setConstraints() {

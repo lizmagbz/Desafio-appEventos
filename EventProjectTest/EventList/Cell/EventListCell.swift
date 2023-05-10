@@ -1,20 +1,19 @@
 import UIKit
 
-protocol EventCellDelegate: AnyObject {
+protocol EventListCellDelegate: AnyObject {
     func advanceAction()
 }
 
-class EventCell: UITableViewCell {
+class EventListCell: UITableViewCell {
     
-    weak var delegate: EventCellDelegate?
-    
-    static let identifier: String = "EventCell"
+    weak var delegate: EventListCellDelegate?
+    static let identifier: String = "EventListCell"
     
     private lazy var eventImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "FeiraDeAnimais")
-        imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 16.0
+        imageView.layer.borderColor = UIColor.systemPurple.cgColor
+        imageView.layer.borderWidth = 2
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -30,15 +29,16 @@ class EventCell: UITableViewCell {
         stackView.distribution = .fill
         stackView.alignment = .leading
         stackView.backgroundColor = .clear
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: -24)
         return stackView
     }()
     
     private lazy var eventLabel: UILabel = {
         let label = UILabel()
-        label.text = "Feira de adoção de animais na Redenção"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = .black
         label.textAlignment = .left
+        label.contentMode = .scaleAspectFill
         label.numberOfLines = 0
         return label
     }()
@@ -85,12 +85,19 @@ class EventCell: UITableViewCell {
         setConditionsButtonTitle()
     }
     
+    func configure(viewModel: EventViewModel?) {
+        guard let viewModel = viewModel else { return }
+        eventLabel.text = viewModel.title
+        eventImage.downloaded(from: viewModel.image, contentMode: .scaleAspectFill)
+    }
+    
     private func setConstraints() {
         contentView.addSubview(eventImage)
         contentView.addSubview(mainStackView)
         
         eventImage.translatesAutoresizingMaskIntoConstraints = false
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        dataLabel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             eventImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 24),
@@ -103,6 +110,8 @@ class EventCell: UITableViewCell {
             mainStackView.leadingAnchor.constraint(equalTo: eventImage.trailingAnchor, constant: 12),
             mainStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             mainStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -32),
+            
+            dataLabel.heightAnchor.constraint(equalToConstant: 24),
         ])
     }
 }
