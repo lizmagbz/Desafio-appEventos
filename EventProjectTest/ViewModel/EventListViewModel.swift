@@ -3,7 +3,7 @@ import UIKit
 struct EventListViewModel {
     let events: [Event]
 }
-
+    
 extension EventListViewModel {
     
     var numberOfSection:  Int {
@@ -32,8 +32,14 @@ extension EventViewModel {
 
 extension EventViewModel {
     
-    var date: Double {
-        return self.event.date ?? 0.0
+    var date: String {
+        let timeStap = event.date
+        let timeInterval = TimeInterval(timeStap ?? 0)
+        let date = Date(timeIntervalSince1970: timeInterval)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
     }
     
     var description: String {

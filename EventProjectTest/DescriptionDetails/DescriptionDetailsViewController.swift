@@ -2,27 +2,23 @@ import UIKit
 
 class DescriptionDetailsViewController: UIViewController {
     var viewDetails = DescriptionDetailsView()
+    var eventViewModel: EventViewModel
+    
+    init(eventViewModel: EventViewModel) {
+        self.eventViewModel = eventViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewDetails.delegate = self
-        fetchData()
+        viewDetails.configure(viewModel: eventViewModel)
         
         view = viewDetails
-    }
-    
-    private func fetchData() {
-        
-        WebService.getEvents() { eventList in
-            
-            if let event = eventList {
-                let eventListViewModel = EventListViewModel(events: event)
-                
-                DispatchQueue.main.async {
-                    self.viewDetails.configure(viewModel: eventListViewModel)
-                }
-            }
-        }
     }
 }
 

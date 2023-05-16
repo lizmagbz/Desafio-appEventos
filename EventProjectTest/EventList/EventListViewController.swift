@@ -27,8 +27,8 @@ class EventListViewController: UIViewController {
 }
 
 extension EventListViewController: EventListViewDelegate {
-    func advenceAction() {
-        let detailsViewController = DescriptionDetailsViewController()
+    func advenceAction(viewModel: EventViewModel) {
+        let detailsViewController = DescriptionDetailsViewController(eventViewModel: viewModel)
         detailsViewController.modalPresentationStyle = .fullScreen
         present(detailsViewController, animated: true, completion: nil)
     }

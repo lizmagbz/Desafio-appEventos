@@ -1,7 +1,7 @@
 import UIKit
 
 protocol EventListViewDelegate: AnyObject {
-    func advenceAction()
+    func advenceAction(viewModel: EventViewModel)
 }
 
 class EventListView: UIView {
@@ -71,7 +71,7 @@ extension EventListView: UITableViewDataSource {
 }
 
 extension EventListView: EventListCellDelegate {
-    func advanceAction() {
-        delegate?.advenceAction()
+    func advanceAction(viewModel: EventViewModel) {
+        delegate?.advenceAction(viewModel: viewModel)
     }
 }

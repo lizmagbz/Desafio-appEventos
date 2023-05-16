@@ -13,6 +13,7 @@ class DescriptionDetailsCell: UITableViewCell {
     private lazy var eventImage: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 16.0
         imageView.layer.borderColor = UIColor.systemPurple.cgColor
         imageView.layer.borderWidth = 2
         return imageView
@@ -33,7 +34,6 @@ class DescriptionDetailsCell: UITableViewCell {
     
     private lazy var eventTitleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Feira de adoção de animais na Redenção"
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textColor = .black
         label.textAlignment = .center
@@ -43,7 +43,6 @@ class DescriptionDetailsCell: UITableViewCell {
     
     private lazy var dataLabel: UILabel = {
         let label = UILabel()
-        label.text = "18/11/2023"
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .gray
         label.textAlignment = .center
@@ -53,7 +52,6 @@ class DescriptionDetailsCell: UITableViewCell {
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "O Patas Dadas estará na Redenção, nesse domingo, com cães para adoção e produtos à venda!\n\nNa ocasião, teremos bottons, bloquinhos e camisetas!\n\nTraga seu Pet, os amigos e o chima, e venha aproveitar esse dia de sol com a gente e com alguns de nossos peludinhos - que estarão prontinhos para ganhar o ♥ de um humano bem legal pra chamar de seu. \n\nAceitaremos todos os tipos de doação:\n- guias e coleiras em bom estado\n- ração (as que mais precisamos no momento são sênior e filhote)\n- roupinhas \n- cobertas \n- remédios dentro do prazo de validade"
         label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = .black
         label.textAlignment = .left
@@ -123,8 +121,9 @@ class DescriptionDetailsCell: UITableViewCell {
     func configure(viewModel: EventViewModel?) {
         guard let viewModel = viewModel else { return }
         eventTitleLabel.text = viewModel.title
-        eventImage.downloaded(from: viewModel.image, contentMode: .scaleAspectFill)
+        dataLabel.text = viewModel.date
         descriptionLabel.text = viewModel.description
+        eventImage.downloaded(from: viewModel.image, contentMode: .scaleAspectFill)
     }
     
     private func setConstraints() {

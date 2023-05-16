@@ -1,13 +1,14 @@
 import UIKit
 
 protocol EventListCellDelegate: AnyObject {
-    func advanceAction()
+    func advanceAction(viewModel: EventViewModel)
 }
 
 class EventListCell: UITableViewCell {
     
     weak var delegate: EventListCellDelegate?
     static let identifier: String = "EventListCell"
+    var viewModel: EventViewModel?
     
     private lazy var eventImage: UIImageView = {
         let imageView = UIImageView()
@@ -45,7 +46,6 @@ class EventListCell: UITableViewCell {
     
     private lazy var dataLabel: UILabel = {
         let label = UILabel()
-        label.text = "18/11/2023"
         label.font = UIFont.boldSystemFont(ofSize: 15)
         label.textColor = .gray
         label.textAlignment = .left
@@ -72,7 +72,8 @@ class EventListCell: UITableViewCell {
     }
     
     @objc private func advanceAction() {
-        delegate?.advanceAction()
+        guard let viewModel = viewModel else { return }
+        delegate?.advanceAction(viewModel: viewModel)
     }
     
     required init?(coder: NSCoder) {
@@ -86,9 +87,12 @@ class EventListCell: UITableViewCell {
     }
     
     func configure(viewModel: EventViewModel?) {
+        self.viewModel = viewModel
         guard let viewModel = viewModel else { return }
         eventLabel.text = viewModel.title
+        dataLabel.text = viewModel.date
         eventImage.downloaded(from: viewModel.image, contentMode: .scaleAspectFill)
+        
     }
     
     private func setConstraints() {
