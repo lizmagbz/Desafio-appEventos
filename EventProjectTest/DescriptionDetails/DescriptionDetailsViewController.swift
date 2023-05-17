@@ -17,6 +17,7 @@ class DescriptionDetailsViewController: UIViewController {
         super.viewDidLoad()
         viewDetails.delegate = self
         viewDetails.configure(viewModel: eventViewModel)
+        navigationController?.navigationBar.tintColor = UIColor.black
         
         view = viewDetails
     }

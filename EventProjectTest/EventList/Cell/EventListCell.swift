@@ -12,8 +12,9 @@ class EventListCell: UITableViewCell {
     
     private lazy var eventImage: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "defaultImage")
         imageView.layer.cornerRadius = 16.0
-        imageView.layer.borderColor = UIColor.systemPurple.cgColor
+        imageView.layer.borderColor = UIColor.gray.cgColor
         imageView.layer.borderWidth = 2
         imageView.clipsToBounds = true
         return imageView

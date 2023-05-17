@@ -12,9 +12,10 @@ class DescriptionDetailsCell: UITableViewCell {
     
     private lazy var eventImage: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "defaultImage")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 16.0
-        imageView.layer.borderColor = UIColor.systemPurple.cgColor
+        imageView.layer.borderColor = UIColor.gray.cgColor
         imageView.layer.borderWidth = 2
         return imageView
     }()
@@ -77,10 +78,10 @@ class DescriptionDetailsCell: UITableViewCell {
         let button = UIButton()
         button.setTitle("Check-in", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.setTitleColor(.systemPurple, for: .normal)
+        button.setTitleColor(.gray, for: .normal)
         button.layer.cornerRadius = 8
         button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.systemPurple.cgColor
+        button.layer.borderColor = UIColor.gray.cgColor
         button.backgroundColor = .systemGray5
         button.addTarget (self, action: #selector (checkAction), for: .touchUpInside)
         return button
@@ -90,11 +91,11 @@ class DescriptionDetailsCell: UITableViewCell {
         let button = UIButton()
         button.setTitle("Compartilhar", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.setTitleColor(.systemPurple, for: .normal)
+        button.setTitleColor(.gray, for: .normal)
         button.layer.cornerRadius = 8
         button.backgroundColor = .systemGray5
         button.layer.borderWidth = 2
-        button.layer.borderColor = UIColor.systemPurple.cgColor
+        button.layer.borderColor = UIColor.gray.cgColor
         button.addTarget (self, action: #selector (shareAction), for: .touchUpInside)
         return button
     }()
